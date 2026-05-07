@@ -1,5 +1,5 @@
 # simulation/engine.py
-
+from aco.aco import ACO
 from simulation.server import Server
 from simulation.workload import WorkloadGenerator
 from simulation.state_builder import StateBuilder
@@ -12,6 +12,7 @@ import numpy as np
 class SimulationEngine:
 
     def __init__(self, num_servers=4):
+        self.aco = ACO(num_servers)
 
         self.servers = [
             Server(i, service_rate=np.random.uniform(0.5, 2.5))
@@ -64,7 +65,7 @@ class SimulationEngine:
 
                 state_matrix = self.state_builder.build()
 
-                selected_server, predicted_rt, probs = process_request(state_matrix)
+                selected_server, predicted_rt, probs = process_request(state_matrix, self.aco)
                 
                 # Track entropy
                 entropy = -np.sum(probs * np.log2(probs + 1e-10))
@@ -96,7 +97,7 @@ class SimulationEngine:
                     state_matrix = completed_request["decision_state"]
                     predicted_rt = completed_request["predicted_rt"]
 
-                    process_feedback(state_matrix, i, actual_rt)
+                    process_feedback(state_matrix, i, actual_rt, self.aco)
 
                     self.completed_requests.append(actual_rt)
                     
