@@ -44,7 +44,7 @@ NOISE_LEVEL = 10
 # -----------------------------
 
 ENABLE_RETRAINING = True
-
+# ENABLE_RETRAINING = False
 
 # -----------------------------
 # Debug / Logging Control

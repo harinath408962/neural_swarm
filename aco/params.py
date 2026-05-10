@@ -43,7 +43,7 @@ EPSILON = 1e-6
 # -----------------------------
 
 # How often to retrain NN (in number of requests)
-RETRAIN_INTERVAL = 50
+RETRAIN_INTERVAL = 1000
 
 
 # -----------------------------

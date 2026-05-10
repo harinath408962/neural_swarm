@@ -74,7 +74,11 @@ def process_feedback(state_matrix, selected_server, actual_rt, aco: ACO):
 
     buffer.add(state_matrix[selected_server], actual_rt)
 
-    if buffer.size() >= RETRAIN_INTERVAL and buffer.size() % RETRAIN_INTERVAL == 0:
+    # if buffer.size() >= RETRAIN_INTERVAL and buffer.size() % RETRAIN_INTERVAL == 0:
+    #     retrain_model()
+    from config import ENABLE_RETRAINING
+
+    if ENABLE_RETRAINING and buffer.size() >= RETRAIN_INTERVAL and buffer.size() % RETRAIN_INTERVAL == 0:
         retrain_model()
 
 
